@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?scenebuilder-stylesheet ../styles/TuningEngine.css?>
+
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0"
+            prefWidth="800.0" styleClass="main-panel" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.tuning.engine.TuningEngineController">
+    <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <bottom>
+            <TableView fx:id="tableView" editable="true" prefHeight="178.0" prefWidth="800.0">
+                <columns>
+                    <TableColumn editable="false" id="tableColumnX" style="" text="X" fx:id="tableColumnX"/>
+                    <TableColumn id="tableColumnY" text="Y" fx:id="tableColumnY"/>
+                </columns>
+                <tooltip>
+                    <Tooltip text="Empty Tooltip"/>
+                </tooltip>
+            </TableView>
+        </bottom>
+        <center>
+            <AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                <children>
+                    <LineChart fx:id="lineChart" alternativeRowFillVisible="false" horizontalGridLinesVisible="false"
+                               legendVisible="false" onMouseDragged="#onMouseDragged" title=""
+                               verticalGridLinesVisible="false" AnchorPane.bottomAnchor="16.0"
+                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <xAxis>
+                            <NumberAxis fx:id="xNumberAxis" minorTickCount="1" minorTickLength="1.0" side="BOTTOM"
+                                        tickLength="1.0" tickUnit="1.0"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis fx:id="yNumberAxis" minorTickCount="1" minorTickLength="1.0" side="LEFT"
+                                        tickLength="1.0" tickUnit="1.0"/>
+                        </yAxis>
+                    </LineChart>
+                    <Slider fx:id="sliderChart" blockIncrement="5.0" majorTickUnit="5.0" minorTickCount="5"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <tooltip>
+                            <Tooltip text="Empty Tooltip"/>
+                        </tooltip>
+                    </Slider>
+                </children>
+            </AnchorPane>
+        </center>
+        <top>
+            <AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                <children>
+                    <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Menu mnemonicParsing="false" text="File" fx:id="menuFile">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="New"/>
+                                <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open"/>
+                                <MenuItem mnemonicParsing="false" text="Close"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit" fx:id="menuEdit">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#resetChartRange" text="Auto-Range"/>
+                                <MenuItem mnemonicParsing="false" text="Delete"/>
+                            </items>
+                        </Menu>
+                        <Menu onAction="#switchCountry" text="Country" fx:id="menuCountry"/>
+                        <Menu mnemonicParsing="false" text="Help" fx:id="menuHelp">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About"/>
+                            </items>
+                        </Menu>
+                    </MenuBar>
+                    <GridPane id="GridPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+                        <children>
+                            <FlowPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                      GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0"
+                                      GridPane.valignment="TOP">
+                                <children>
+                                    <Label fx:id="lblCountry" text="Country"/>
+                                    <Label fx:id="lblTime" text="Time"/>
+                                    <Label fx:id="lblDate" text="Date"/>
+                                </children>
+                                <GridPane.margin>
+                                    <Insets fx:id="x1"/>
+                                </GridPane.margin>
+                            </FlowPane>
+                            <FlowPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                      GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.margin="$x1"
+                                      GridPane.rowIndex="0" GridPane.valignment="TOP">
+                                <children>
+                                    <CheckBox fx:id="signed" mnemonicParsing="false" selected="true" text="signed">
+                                        <effect>
+                                            <ColorAdjust/>
+                                        </effect>
+                                        <tooltip>
+                                            <Tooltip text="signed"/>
+                                        </tooltip>
+                                    </CheckBox>
+                                    <ChoiceBox fx:id="binaryType">
+                                        <effect>
+                                            <ColorAdjust/>
+                                        </effect>
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="UTF-8"/>
+                                                <String fx:value="UTF-16"/>
+                                            </FXCollections>
+                                        </items>
+                                        <tooltip>
+                                            <Tooltip text="binaryType"/>
+                                        </tooltip>
+                                    </ChoiceBox>
+                                    <TextField fx:id="xFrom" prefWidth="87.0" promptText="From x Value" text="10">
+                                        <effect>
+                                            <ColorAdjust/>
+                                        </effect>
+                                        <tooltip>
+                                            <Tooltip text="rangexFrom"/>
+                                        </tooltip>
+                                    </TextField>
+                                    <TextField fx:id="xTo" prefWidth="79.0" promptText="To x Value" text="20">
+                                        <effect>
+                                            <ColorAdjust/>
+                                        </effect>
+                                        <tooltip>
+                                            <Tooltip text="rangexTo"/>
+                                        </tooltip>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#changeChartRange" text="Range">
+                                        <effect>
+                                            <ColorAdjust/>
+                                        </effect>
+                                        <tooltip>
+                                            <Tooltip text="range"/>
+                                        </tooltip>
+                                    </Button>
+                                </children>
+                            </FlowPane>
+                        </children>
+                        <columnConstraints>
+                            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES"/>
+                            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES"/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints valignment="TOP" vgrow="SOMETIMES"/>
+                        </rowConstraints>
+                    </GridPane>
+                </children>
+            </AnchorPane>
+        </top>
+    </BorderPane>
+</AnchorPane>

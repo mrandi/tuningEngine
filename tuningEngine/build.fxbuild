@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<anttasks:AntTask xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:anttasks="http://at.bestsolution.efxclipse.tooling.jdt/1.0" buildDirectory="${project}/build">
+  <deploy height="" width="">
+    <application name="TuningEngine" mainclass="com.tuning.engine.TuningEngine" version="1.0-SNAPSHOT"/>
+    <info vendor="Michele Randi, Marcel Wieczorek"/>
+  </deploy>
+  <signjar/>
+</anttasks:AntTask>
